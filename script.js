@@ -52,30 +52,29 @@ function pixelate(img, scaleFactor) {
 }
 
 // Affichage et animation
-function drawRandomImage() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  
-  // Choisir une image aléatoire
-  const img = images[Math.floor(Math.random() * images.length)];
+function startAnimation() {
+  setInterval(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-  // Calculer position et taille (si besoin, adapte selon ton layout)
-  const w = canvas.width * 0.8;
-  const h = canvas.height * 0.8;
-  const x = (canvas.width - w) / 2;
-  const y = (canvas.height - h) / 2;
+    const img = images[Math.floor(Math.random() * images.length)];
 
-  // Afficher l'image
-  ctx.drawImage(img, x, y, w, h);
+    let toDraw = img;
 
-  // Choisir un délai aléatoire entre 400ms et 800ms
-  const delay = 400+ Math.random() * 400;
+    // 85 % de chances d’appliquer l’effet
+    if (Math.random() < 0.85) {
+      const scale = Math.random() * 0.05 + 0.0001;
+      toDraw = pixelate(img, scale);
+    }
 
-  // Relancer l'affichage après ce délai
-  setTimeout(drawRandomImage, delay);
+    const scaleDisplay = 0.7;
+    const w = toDraw.width * scaleDisplay;
+    const h = toDraw.height * scaleDisplay;
+    const x = (canvas.width - w) / 2;
+    const y = (canvas.height - h) / 2;
+
+    ctx.drawImage(toDraw, x, y, w, h);
+  }, 400); // toutes les 0.4 secondes
 }
-
-// Lancer la première image
-drawRandomImage();
 
 
 
