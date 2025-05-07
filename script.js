@@ -62,11 +62,11 @@ function startAnimation() {
 
     // 85 % de chances d’appliquer l’effet
     if (Math.random() < 0.85) {
-      const scale = Math.random() * 0.5 + 0.0001;
+      const scale = Math.random() * 0.05 + 0.0001;
       toDraw = pixelate(img, scale);
     }
 
-    const scaleDisplay = 0.8;
+    const scaleDisplay = 0.7;
     const w = toDraw.width * scaleDisplay;
     const h = toDraw.height * scaleDisplay;
     const x = (canvas.width - w) / 2;
