@@ -74,4 +74,12 @@ function startAnimation() {
 
     const delay = 400 + Math.random() * 400;
 }
+const delay = 400 + Math.random() * 400;
+
+  // Relancer l'affichage après ce délai
+  setTimeout(drawRandomImage, delay);
+
+
+// Lancer la première image
+drawRandomImage();
 
