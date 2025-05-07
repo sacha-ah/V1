@@ -66,13 +66,12 @@ function startAnimation() {
       toDraw = pixelate(img, scale);
     }
 
-    const scaleDisplay = 0.7;
+    const scaleDisplay = 0.8;
     const w = toDraw.width * scaleDisplay;
     const h = toDraw.height * scaleDisplay;
     const x = (canvas.width - w) / 2;
     const y = (canvas.height - h) / 2;
 
-    ctx.drawImage(toDraw, x, y, w, h);
-  }, 400); // toutes les 0.4 secondes
+    const delay = 400 + Math.random() * 400;
 }
 
