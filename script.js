@@ -66,7 +66,7 @@ function startAnimation() {
       toDraw = pixelate(img, scale);
     }
 
-    const scaleDisplay = 1.5;
+    const scaleDisplay = 1.1;
     const w = toDraw.width * scaleDisplay;
     const h = toDraw.height * scaleDisplay;
     const x = (canvas.width - w) / 2;
