@@ -73,7 +73,7 @@ function startAnimation() {
     const y = (canvas.height - h) / 2;
 
     ctx.drawImage(toDraw, x, y, w, h);
-  }, 400); // toutes les 0.4 secondes
+  }, 800); // toutes les 0.4 secondes
 }
 
 
