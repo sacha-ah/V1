@@ -68,7 +68,7 @@ function drawRandomImage() {
   ctx.drawImage(img, x, y, w, h);
 
   // Choisir un délai aléatoire entre 400ms et 800ms
-  const delay = 300 + Math.random() * 1200;
+  const delay = 400+ Math.random() * 400;
 
   // Relancer l'affichage après ce délai
   setTimeout(drawRandomImage, delay);
