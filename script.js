@@ -65,7 +65,7 @@ function startAnimation() {
       console.log(`Image affichée : ${imagePath}`);
 
       // Afficher l'image pendant 1.5 secondes avant de passer à la suivante
-      setTimeout(showNextImage, 400);
+      setTimeout(showNextImage, 300);
     };
 
     img.src = imagePath;
