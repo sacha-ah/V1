@@ -55,7 +55,7 @@ function startAnimation() {
       }
 
       // Centrer l'image
-      const scaleDisplay = 0.9;
+      const scaleDisplay = 0.8;
       const w = toDraw.width * scaleDisplay;
       const h = toDraw.height * scaleDisplay;
       const x = (canvas.width - w) / 2;
@@ -65,7 +65,7 @@ function startAnimation() {
       console.log(`Image affichée : ${imagePath}`);
 
       // Afficher l'image pendant 1.5 secondes avant de passer à la suivante
-      setTimeout(showNextImage, 800);
+      setTimeout(showNextImage, 400);
     };
 
     img.src = imagePath;
