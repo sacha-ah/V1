@@ -55,7 +55,7 @@ function startAnimation() {
       }
 
       // Centrer l'image
-      const scaleDisplay = 0.9;
+      const scaleDisplay = 1;
       const w = toDraw.width * scaleDisplay;
       const h = toDraw.height * scaleDisplay;
       const x = (canvas.width - w) / 2;
