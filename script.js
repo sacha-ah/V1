@@ -7,7 +7,7 @@ canvas.height = window.innerHeight;
 // Liste automatique des chemins d’images
 let imagePaths = [];
 for (let i = 1; i <= 400; i++) {
-  imagePaths.push(Insta2/image${i}.jpg);
+  imagePaths.push(`Insta2/image${i}.jpg`);
 }
 
 // Effet de pixellisation
@@ -62,10 +62,10 @@ function startAnimation() {
       const y = (canvas.height - h) / 2;
 
       ctx.drawImage(toDraw, x, y, w, h);
-      console.log(Image affichée : ${imagePath});
+      console.log(`Image affichée : ${imagePath}`);
 
       // Afficher l'image pendant 1.5 secondes avant de passer à la suivante
-      setTimeout(showNextImage, 300);
+      setTimeout(showNextImage, 800);
     };
 
     img.src = imagePath;
