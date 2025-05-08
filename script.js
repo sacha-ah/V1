@@ -4,30 +4,13 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// 📁 Générer la liste des chemins
-const imagePaths = [];
+// Liste automatique des chemins d’images
+let imagePaths = [];
 for (let i = 1; i <= 400; i++) {
   imagePaths.push(`Insta2/image${i}.jpg`);
 }
 
-let images = [];
-let loadedImages = [];
-
-// Charger les images de manière asynchrone
-imagePaths.forEach((src, index) => {
-  const img = new Image();
-  img.src = src;
-  img.onload = () => {
-    loadedImages.push(img);
-    if (loadedImages.length === 1) {
-      // Commencer l’animation dès qu’une image est dispo
-      startAnimation();
-    }
-  };
-  images[index] = img; // On garde l’ordre
-});
-
-// 🎨 Effet de pixellisation
+// Effet de pixellisation
 function pixelate(img, scaleFactor) {
   const w = img.width;
   const h = img.height;
@@ -52,20 +35,26 @@ function pixelate(img, scaleFactor) {
   return finalCanvas;
 }
 
-// 🌀 Animation avec délai variable
+// Affichage et animation
 function startAnimation() {
-  function drawNext() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function showNextImage() {
 
-    if (loadedImages.length > 0) {
-      const img = loadedImages[Math.floor(Math.random() * loadedImages.length)];
+
+    const randomIndex = Math.floor(Math.random() * imagePaths.length);
+    const imagePath = imagePaths[randomIndex];
+    const img = new Image();
+
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Décider si on pixelise l'image (85% de chances)
       let toDraw = img;
-
       if (Math.random() < 0.85) {
         const scale = Math.random() * 0.08 + 0.0001;
         toDraw = pixelate(img, scale);
       }
 
+      // Centrer l'image
       const scaleDisplay = 0.9;
       const w = toDraw.width * scaleDisplay;
       const h = toDraw.height * scaleDisplay;
@@ -73,12 +62,18 @@ function startAnimation() {
       const y = (canvas.height - h) / 2;
 
       ctx.drawImage(toDraw, x, y, w, h);
-    }
+      console.log(`Image affichée : ${imagePath}`);
 
-    const delay = 400 + Math.random() * 400;
-    setTimeout(drawNext, delay);
+      // Afficher l'image pendant 1.5 secondes avant de passer à la suivante
+      setTimeout(showNextImage, 400);
+    };
+
+    img.src = imagePath;
   }
 
-  drawNext(); // Lancer la boucle
+  showNextImage();
 }
+
+// Démarrer l'animation
+startAnimation();
 
