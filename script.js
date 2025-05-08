@@ -4,29 +4,30 @@ const ctx = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// Liste automatique des chemins d’images
+// 📁 Générer la liste des chemins
 const imagePaths = [];
 for (let i = 1; i <= 400; i++) {
   imagePaths.push(`Insta2/image${i}.jpg`);
 }
 
 let images = [];
-let loaded = 0;
+let loadedImages = [];
 
-// Charger toutes les images
-imagePaths.forEach((src, i) => {
+// Charger les images de manière asynchrone
+imagePaths.forEach((src, index) => {
   const img = new Image();
   img.src = src;
   img.onload = () => {
-    loaded++;
-    if (loaded === imagePaths.length) {
+    loadedImages.push(img);
+    if (loadedImages.length === 1) {
+      // Commencer l’animation dès qu’une image est dispo
       startAnimation();
     }
   };
-  images[i] = img;
+  images[index] = img; // On garde l’ordre
 });
 
-// Effet de pixellisation
+// 🎨 Effet de pixellisation
 function pixelate(img, scaleFactor) {
   const w = img.width;
   const h = img.height;
@@ -51,30 +52,33 @@ function pixelate(img, scaleFactor) {
   return finalCanvas;
 }
 
-// Affichage et animation
+// 🌀 Animation avec délai variable
 function startAnimation() {
-  setInterval(() => {
+  function drawNext() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const img = images[Math.floor(Math.random() * images.length)];
+    if (loadedImages.length > 0) {
+      const img = loadedImages[Math.floor(Math.random() * loadedImages.length)];
+      let toDraw = img;
 
-    let toDraw = img;
+      if (Math.random() < 0.85) {
+        const scale = Math.random() * 0.08 + 0.0001;
+        toDraw = pixelate(img, scale);
+      }
 
-    // 85 % de chances d’appliquer l’effet
-    if (Math.random() < 0.85) {
-      const scale = Math.random() * 0.08 + 0.0001;
-      toDraw = pixelate(img, scale);
+      const scaleDisplay = 0.9;
+      const w = toDraw.width * scaleDisplay;
+      const h = toDraw.height * scaleDisplay;
+      const x = (canvas.width - w) / 2;
+      const y = (canvas.height - h) / 2;
+
+      ctx.drawImage(toDraw, x, y, w, h);
     }
 
-    const scaleDisplay = 0.9;
-    const w = toDraw.width * scaleDisplay;
-    const h = toDraw.height * scaleDisplay;
-    const x = (canvas.width - w) / 2;
-    const y = (canvas.height - h) / 2;
+    const delay = 400 + Math.random() * 400;
+    setTimeout(drawNext, delay);
+  }
 
-    ctx.drawImage(toDraw, x, y, w, h);
-  }, 800); // toutes les 0.4 secondes
+  drawNext(); // Lancer la boucle
 }
-
-
 
