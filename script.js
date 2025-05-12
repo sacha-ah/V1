@@ -72,14 +72,6 @@ function startAnimation() {
     const x = (canvas.width - w) / 2;
     const y = (canvas.height - h) / 2;
 
-    const delay = 400 + Math.random() * 400;
+    ctx.drawImage(toDraw, x, y, w, h);
+  }, 400); // toutes les 0.4 secondes
 }
-const delay = 400 + Math.random() * 400;
-
-  // Relancer l'affichage après ce délai
-  setTimeout(drawRandomImage, delay);
-
-
-// Lancer la première image
-drawRandomImage();
-
