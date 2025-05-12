@@ -5,26 +5,10 @@ canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
 // Liste automatique des chemins d’images
-const imagePaths = [];
-for (let i = 1; i <= 400; i++) {
+let imagePaths = [];
+for (let i = 1; i <= 1354; i++) {
   imagePaths.push(`Insta2/image${i}.jpg`);
 }
-
-let images = [];
-let loaded = 0;
-
-// Charger toutes les images
-imagePaths.forEach((src, i) => {
-  const img = new Image();
-  img.src = src;
-  img.onload = () => {
-    loaded++;
-    if (loaded === imagePaths.length) {
-      startAnimation();
-    }
-  };
-  images[i] = img;
-});
 
 // Effet de pixellisation
 function pixelate(img, scaleFactor) {
@@ -53,25 +37,44 @@ function pixelate(img, scaleFactor) {
 
 // Affichage et animation
 function startAnimation() {
-  setInterval(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  function showNextImage() {
 
-    const img = images[Math.floor(Math.random() * images.length)];
 
-    let toDraw = img;
+    const randomIndex = Math.floor(Math.random() * imagePaths.length);
+    const imagePath = imagePaths[randomIndex];
+    const img = new Image();
 
-    // 85 % de chances d’appliquer l’effet
-    if (Math.random() < 0.85) {
-      const scale = Math.random() * 0.5 + 0.0001;
-      toDraw = pixelate(img, scale);
-    }
+    img.onload = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-    const scaleDisplay = 0.8;
-    const w = toDraw.width * scaleDisplay;
-    const h = toDraw.height * scaleDisplay;
-    const x = (canvas.width - w) / 2;
-    const y = (canvas.height - h) / 2;
+      // Décider si on pixelise l'image (85% de chances)
+      let toDraw = img;
+      if (Math.random() < 0.85) {
+        const scale = Math.random() * 0.08 + 0.0001;
+        toDraw = pixelate(img, scale);
+      }
 
-    ctx.drawImage(toDraw, x, y, w, h);
-  }, 400); // toutes les 0.4 secondes
+      // Centrer l'image
+      const scaleDisplay = 0.8;
+      const w = toDraw.width * scaleDisplay;
+      const h = toDraw.height * scaleDisplay;
+      const x = (canvas.width - w) / 2;
+      const y = (canvas.height - h) / 2;
+
+      ctx.drawImage(toDraw, x, y, w, h);
+      console.log(`Image affichée : ${imagePath}`);
+
+      // Afficher l'image pendant 1.5 secondes avant de passer à la suivante
+      setTimeout(showNextImage, 400);
+    };
+
+    img.src = imagePath;
+  }
+
+  showNextImage();
 }
+
+// Démarrer l'animation
+startAnimation();
+
+
