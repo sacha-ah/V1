@@ -6,7 +6,7 @@ canvas.height = window.innerHeight;
 
 // Liste automatique des chemins d’images
 let imagePaths = [];
-for (let i = 1; i <= 400; i++) {
+for (let i = 1; i <= 1354; i++) {
   imagePaths.push(`Insta2/image${i}.jpg`);
 }
 
