@@ -49,7 +49,7 @@ function startAnimation() {
 
       // Décider si on pixelise l'image (85% de chances)
       let toDraw = img;
-      if (Math.random() < 0.85) {
+      if (Math.random() < 0.90) {
         const scale = Math.random() * 0.08 + 0.0001;
         toDraw = pixelate(img, scale);
       }
